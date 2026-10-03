@@ -1,0 +1,852 @@
+<!DOCTYPE html>  
+<html lang="ht">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  
+    <title>Haïti food express | Livrezon Manje nan tout kotew ye</title>  
+  
+    <meta name="description"  
+          content="Huber Eat - Kòmande manje nan restoran ou renmen yo epi resevwa li lakay ou.">  
+  
+    <style>  
+        * {  
+            margin: 0;  
+            padding: 0;  
+            box-sizing: border-box;  
+            font-family: Arial, Helvetica, sans-serif;  
+        }  
+  
+        body {  
+            background: #f7f7f7;  
+            color: #222;  
+        }  
+  
+        /* HEADER */  
+        header {  
+            background: white;  
+            padding: 18px 7%;  
+            display: flex;  
+            align-items: center;  
+            justify-content: space-between;  
+            box-shadow: 0 2px 10px rgba(0,0,0,.08);  
+            position: sticky;  
+            top: 0;  
+            z-index: 1000;  
+        }  
+  
+        .logo {  
+            font-size: 28px;  
+            font-weight: bold;  
+            color: #ff5a1f;  
+        }  
+  
+        nav {  
+            display: flex;  
+            gap: 25px;  
+            align-items: center;  
+        }  
+  
+        nav a {  
+            text-decoration: none;  
+            color: #333;  
+            font-weight: 600;  
+        }  
+  
+        nav a:hover {  
+            color: #ff5a1f;  
+        }  
+  
+        .cart-btn {  
+            border: none;  
+            background: #ff5a1f;  
+            color: white;  
+            padding: 11px 18px;  
+            border-radius: 25px;  
+            cursor: pointer;  
+            font-weight: bold;  
+        }  
+  
+        /* HERO */  
+        .hero {  
+            min-height: 500px;  
+            display: flex;  
+            align-items: center;  
+            padding: 60px 7%;  
+            background:  
+                linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),  
+                url("https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1600&q=80")  
+                center/cover;  
+            color: white;  
+        }  
+  
+        .hero-content {  
+            max-width: 650px;  
+        }  
+  
+        .hero h1 {  
+            font-size: clamp(40px, 6vw, 70px);  
+            margin-bottom: 20px;  
+        }  
+  
+        .hero h1 span {  
+            color: #ff6b2c;  
+        }  
+  
+        .hero p {  
+            font-size: 20px;  
+            line-height: 1.6;  
+            margin-bottom: 30px;  
+        }  
+  
+        .search-box {  
+            display: flex;  
+            background: white;  
+            border-radius: 12px;  
+            overflow: hidden;  
+            max-width: 600px;  
+        }  
+  
+        .search-box input {  
+            flex: 1;  
+            border: none;  
+            padding: 18px;  
+            outline: none;  
+            font-size: 16px;  
+        }  
+  
+        .search-box button {  
+            border: none;  
+            background: #ff5a1f;  
+            color: white;  
+            padding: 0 25px;  
+            cursor: pointer;  
+            font-weight: bold;  
+        }  
+  
+        /* GENERAL */  
+        section {  
+            padding: 60px 7%;  
+        }  
+  
+        .section-title {  
+            text-align: center;  
+            margin-bottom: 35px;  
+        }  
+  
+        .section-title h2 {  
+            font-size: 35px;  
+            margin-bottom: 8px;  
+        }  
+  
+        .section-title p {  
+            color: #777;  
+        }  
+  
+        /* CATEGORIES */  
+        .categories {  
+            display: grid;  
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));  
+            gap: 18px;  
+        }  
+  
+        .category {  
+            background: white;  
+            padding: 25px 10px;  
+            border-radius: 15px;  
+            text-align: center;  
+            cursor: pointer;  
+            transition: .3s;  
+            box-shadow: 0 4px 15px rgba(0,0,0,.06);  
+        }  
+  
+        .category:hover {  
+            transform: translateY(-5px);  
+        }  
+  
+        .category .icon {  
+            font-size: 40px;  
+            margin-bottom: 10px;  
+        }  
+  
+        .category h3 {  
+            font-size: 15px;  
+        }  
+  
+        /* RESTAURANTS */  
+        .restaurants {  
+            display: grid;  
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));  
+            gap: 25px;  
+        }  
+  
+        .restaurant {  
+            background: white;  
+            border-radius: 16px;  
+            overflow: hidden;  
+            box-shadow: 0 5px 20px rgba(0,0,0,.08);  
+            transition: .3s;  
+        }  
+  
+        .restaurant:hover {  
+            transform: translateY(-5px);  
+        }  
+  
+        .restaurant img {  
+            width: 100%;  
+            height: 190px;  
+            object-fit: cover;  
+        }  
+  
+        .restaurant-info {  
+            padding: 20px;  
+        }  
+  
+        .restaurant-info h3 {  
+            margin-bottom: 8px;  
+        }  
+  
+        .restaurant-info p {  
+            color: #777;  
+            margin-bottom: 8px;  
+        }  
+  
+        .rating {  
+            color: #f5a623;  
+            margin-bottom: 15px;  
+        }  
+  
+        .order-btn {  
+            width: 100%;  
+            border: none;  
+            background: #ff5a1f;  
+            color: white;  
+            padding: 13px;  
+            border-radius: 8px;  
+            cursor: pointer;  
+            font-weight: bold;  
+        }  
+  
+        /* HOW IT WORKS */  
+        .steps {  
+            display: grid;  
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));  
+            gap: 25px;  
+        }  
+  
+        .step {  
+            background: white;  
+            padding: 30px;  
+            text-align: center;  
+            border-radius: 15px;  
+            box-shadow: 0 4px 15px rgba(0,0,0,.06);  
+        }  
+  
+        .step-icon {  
+            font-size: 45px;  
+            margin-bottom: 15px;  
+        }  
+  
+        .step h3 {  
+            margin-bottom: 10px;  
+        }  
+  
+        .step p {  
+            color: #777;  
+            line-height: 1.5;  
+        }  
+  
+        /* CTA */  
+        .cta {  
+            background: #ff5a1f;  
+            color: white;  
+            text-align: center;  
+            border-radius: 20px;  
+            margin: 30px 7%;  
+            padding: 60px 20px;  
+        }  
+  
+        .cta h2 {  
+            font-size: 38px;  
+            margin-bottom: 15px;  
+        }  
+  
+        .cta button {  
+            background: white;  
+            color: #ff5a1f;  
+            border: none;  
+            padding: 14px 25px;  
+            border-radius: 25px;  
+            margin-top: 20px;  
+            cursor: pointer;  
+            font-weight: bold;  
+        }  
+  
+        /* FOOTER */  
+        footer {  
+            background: #171717;  
+            color: white;  
+            padding: 50px 7% 25px;  
+        }  
+  
+        .footer-grid {  
+            display: grid;  
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));  
+            gap: 30px;  
+            margin-bottom: 35px;  
+        }  
+  
+        footer h3 {  
+            color: #ff6b2c;  
+            margin-bottom: 15px;  
+        }  
+  
+        footer p,  
+        footer a {  
+            color: #bbb;  
+            line-height: 2;  
+            text-decoration: none;  
+        }  
+  
+        .copyright {  
+            border-top: 1px solid #333;  
+            padding-top: 20px;  
+            text-align: center;  
+            color: #888;  
+        }  
+  
+        /* CART */  
+        .cart {  
+            position: fixed;  
+            right: -400px;  
+            top: 0;  
+            width: 350px;  
+            height: 100%;  
+            background: white;  
+            z-index: 2000;  
+            padding: 25px;  
+            box-shadow: -5px 0 20px rgba(0,0,0,.2);  
+            transition: .3s;  
+        }  
+  
+        .cart.active {  
+            right: 0;  
+        }  
+  
+        .cart-header {  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            margin-bottom: 25px;  
+        }  
+  
+        .close-cart {  
+            border: none;  
+            background: none;  
+            font-size: 25px;  
+            cursor: pointer;  
+        }  
+  
+        .cart-item {  
+            display: flex;  
+            justify-content: space-between;  
+            border-bottom: 1px solid #eee;  
+            padding: 15px 0;  
+        }  
+  
+        .cart-total {  
+            margin-top: 25px;  
+            font-size: 20px;  
+            font-weight: bold;  
+        }  
+  
+        .checkout {  
+            width: 100%;  
+            margin-top: 20px;  
+            padding: 15px;  
+            background: #ff5a1f;  
+            color: white;  
+            border: none;  
+            border-radius: 8px;  
+            cursor: pointer;  
+            font-weight: bold;  
+        }  
+  
+        /* MOBILE */  
+        @media (max-width: 768px) {  
+            header {  
+                padding: 15px 5%;  
+            }  
+  
+            nav {  
+                display: none;  
+            }  
+  
+            .hero {  
+                padding: 50px 5%;  
+            }  
+  
+            section {  
+                padding: 45px 5%;  
+            }  
+  
+            .cta {  
+                margin: 20px 5%;  
+            }  
+  
+            .cart {  
+                width: 90%;  
+            }  
+        }  
+    </style>  
+</head>  
+  
+<body>  
+  
+<!-- HEADER -->  
+<header>  
+    <div class="logo">🍔 Huber Eat</div>  
+  
+    <nav>  
+        <a href="#home">Akèy</a>  
+        <a href="#categories">Kategori</a>  
+        <a href="#restaurants">Restoran</a>  
+        <a href="#how">Kijan li mache?</a>  
+    </nav>  
+  
+    <button class="cart-btn" onclick="openCart()">  
+        🛒 Panier (<span id="cartCount">0</span>)  
+    </button>  
+</header>  
+  
+  
+<!-- HERO -->  
+<section class="hero" id="home">  
+    <div class="hero-content">  
+  
+        <h1>  
+            Bon manje,  
+            <span>dirèk lakay ou.</span>  
+        </h1>  
+  
+        <p>  
+            Chèche restoran ou renmen, kòmande manje ou vle  
+            epi resevwa li rapidman kote ou ye.  
+        </p>  
+  
+        <div class="search-box">  
+            <input  
+                type="text"  
+                id="searchInput"  
+                placeholder="Kisa w anvi manje?"  
+            >  
+  
+            <button onclick="searchFood()">  
+                Chèche  
+            </button>  
+        </div>  
+  
+    </div>  
+</section>  
+  
+  
+<!-- CATEGORIES -->  
+<section id="categories">  
+  
+    <div class="section-title">  
+        <h2>🍴 Kategori</h2>  
+        <p>Chwazi kalite manje ou anvi a</p>  
+    </div>  
+  
+    <div class="categories">  
+  
+        <div class="category">  
+            <div class="icon">🍗</div>  
+            <h3>Fritay</h3>  
+        </div>  
+  
+        <div class="category">  
+            <div class="icon">🍚</div>  
+            <h3>Diri</h3>  
+        </div>  
+  
+        <div class="category">  
+            <div class="icon">🍕</div>  
+            <h3>Pizza</h3>  
+        </div>  
+  
+        <div class="category">  
+            <div class="icon">🍔</div>  
+            <h3>Burger</h3>  
+        </div>  
+  
+        <div class="category">  
+            <div class="icon">🥪</div>  
+            <h3>Sandwich</h3>  
+        </div>  
+  
+        <div class="category">  
+            <div class="icon">🍰</div>  
+            <h3>Dessè</h3>  
+        </div>  
+  
+        <div class="category">  
+            <div class="icon">🥤</div>  
+            <h3>Bwason</h3>  
+        </div>  
+  
+    </div>  
+  
+</section>  
+  
+  
+<!-- RESTAURANTS -->  
+<section id="restaurants">  
+  
+    <div class="section-title">  
+        <h2>🔥 Restoran Popilè</h2>  
+        <p>Chwazi restoran ou vle kòmande ladan</p>  
+    </div>  
+  
+    <div class="restaurants">  
+  
+        <div class="restaurant">  
+  
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80">  
+  
+            <div class="restaurant-info">  
+                <h3>🍽️ Bel Asyèt</h3>  
+  
+                <p>📍 Rue Noire</p>  
+  
+                <div class="rating">  
+                    ⭐⭐⭐⭐⭐ 4.9  
+                </div>  
+  
+                <p>⏱️ 20-30 min</p>  
+  
+                <button  
+                    class="order-btn"  
+                    onclick="addToCart('Plat Bel Asyèt', 750)"  
+                >  
+                    Ajoute nan panier — 750 HTG  
+                </button>  
+            </div>  
+  
+        </div>  
+  
+  
+        <div class="restaurant">  
+  
+            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80">  
+  
+            <div class="restaurant-info">  
+                <h3>🍲 Marabout</h3>  
+  
+                <p>📍 Léogâne</p>  
+  
+                <div class="rating">  
+                    ⭐⭐⭐⭐☆ 4.7  
+                </div>  
+  
+                <p>⏱️ 15-25 min</p>  
+  
+                <button  
+                    class="order-btn"  
+                    onclick="addToCart('Plat Marabout', 900)"  
+                >  
+                    Ajoute nan panier — 900 HTG  
+                </button>  
+            </div>  
+  
+        </div>  
+  
+  
+        <div class="restaurant">  
+  
+            <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=80">  
+  
+            <div class="restaurant-info">  
+                <h3>🍛 Ti Basen</h3>  
+  
+                <p>📍 Bino</p>  
+  
+                <div class="rating">  
+                    ⭐⭐⭐⭐⭐ 4.8  
+                </div>  
+  
+                <p>⏱️ 20-30 min</p>  
+  
+                <button  
+                    class="order-btn"  
+                    onclick="addToCart('Plat Ti Basen', 800)"  
+                >  
+                    Ajoute nan panier — 800 HTG  
+                </button>  
+            </div>  
+  
+        </div>  
+  
+  
+        <div class="restaurant">  
+  
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=80">  
+  
+            <div class="restaurant-info">  
+                <h3>🍕 Donpée</h3>  
+  
+                <p>📍 Route d'Abone</p>  
+  
+                <div class="rating">  
+                    ⭐⭐⭐⭐⭐ 4.9  
+                </div>  
+  
+                <p>⏱️ 15-25 min</p>  
+  
+                <button  
+                    class="order-btn"  
+                    onclick="addToCart('Pizza Donpée', 1000)"  
+                >  
+                    Ajoute nan panier — 1000 HTG  
+                </button>  
+            </div>  
+  
+        </div>  
+  
+    </div>  
+  
+</section>  
+  
+  
+<!-- HOW IT WORKS -->  
+<section id="how">  
+  
+    <div class="section-title">  
+        <h2>🚀 Kijan Huber Eat mache?</h2>  
+        <p>Kòmande manje an kèk etap sèlman</p>  
+    </div>  
+  
+    <div class="steps">  
+  
+        <div class="step">  
+            <div class="step-icon">🔎</div>  
+            <h3>1. Chèche</h3>  
+            <p>  
+                Chèche restoran oswa kalite manje ou vle.  
+            </p>  
+        </div>  
+  
+        <div class="step">  
+            <div class="step-icon">🛒</div>  
+            <h3>2. Kòmande</h3>  
+            <p>  
+                Chwazi manje ou epi mete li nan panier.  
+            </p>  
+        </div>  
+  
+        <div class="step">  
+            <div class="step-icon">💳</div>  
+            <h3>3. Peye</h3>  
+            <p>  
+                Peye avèk MonCash, NatCash oswa kat.  
+            </p>  
+        </div>  
+  
+        <div class="step">  
+            <div class="step-icon">🛵</div>  
+            <h3>4. Resevwa</h3>  
+            <p>  
+                Livre a pran manje a epi pote li ba ou.  
+            </p>  
+        </div>  
+  
+    </div>  
+  
+</section>  
+  
+  
+<!-- CTA -->  
+<div class="cta">  
+  
+    <h2>🏪 Ou gen yon restoran?</h2>  
+  
+    <p>  
+        Vin patnè Huber Eat epi fè plis kliyan jwenn restoran ou.  
+    </p>  
+  
+    <button onclick="restaurantSignup()">  
+        Enskri restoran mwen  
+    </button>  
+  
+</div>  
+  
+  
+<!-- FOOTER -->  
+<footer>  
+  
+    <div class="footer-grid">  
+  
+        <div>  
+            <h3>🍔 Huber Eat</h3>  
+            <p>  
+                Platfòm livrezon manje pou ede ou  
+                jwenn bon manje pi fasil.  
+            </p>  
+        </div>  
+  
+        <div>  
+            <h3>Navigation</h3>  
+            <p><a href="#home">Akèy</a></p>  
+            <p><a href="#categories">Kategori</a></p>  
+            <p><a href="#restaurants">Restoran</a></p>  
+        </div>  
+  
+        <div>  
+            <h3>Èd</h3>  
+            <p><a href="#">FAQ</a></p>  
+            <p><a href="#">Contact</a></p>  
+            <p><a href="#">Privacy Policy</a></p>  
+            <p><a href="#">Terms & Conditions</a></p>  
+        </div>  
+  
+        <div>  
+            <h3>Kontakte nou</h3>  
+            <p>📱 +509 XX XX XX XX</p>  
+            <p>📧 support@hubereat.com</p>  
+            <p>📍 Léogâne, Haïti</p>  
+        </div>  
+  
+    </div>  
+  
+    <div class="copyright">  
+        © 2026 Huber Eat — Tout dwa rezève.  
+    </div>  
+  
+</footer>  
+  
+  
+<!-- CART -->  
+<div class="cart" id="cart">  
+  
+    <div class="cart-header">  
+        <h2>🛒 Panier mwen</h2>  
+  
+        <button  
+            class="close-cart"  
+            onclick="closeCart()"  
+        >  
+            ×  
+        </button>  
+    </div>  
+  
+    <div id="cartItems">  
+        <p>Panier an vid.</p>  
+    </div>  
+  
+    <div class="cart-total">  
+        Total: <span id="cartTotal">0</span> HTG  
+    </div>  
+  
+    <button  
+        class="checkout"  
+        onclick="checkout()"  
+    >  
+        Kontinye ak kòmand lan  
+    </button>  
+  
+</div>  
+  
+  
+<script>  
+  
+    let cart = [];  
+    let total = 0;  
+  
+  
+    function addToCart(name, price) {  
+  
+        cart.push({  
+            name: name,  
+            price: price  
+        });  
+  
+        total += price;  
+  
+        updateCart();  
+  
+        alert(name + " ajoute nan panier ✅");  
+    }  
+  
+  
+    function updateCart() {  
+  
+        const items = document.getElementById("cartItems");  
+        const count = document.getElementById("cartCount");  
+        const totalElement = document.getElementById("cartTotal");  
+  
+        count.innerText = cart.length;  
+  
+        totalElement.innerText = total.toLocaleString();  
+  
+        if (cart.length === 0) {  
+  
+            items.innerHTML = "<p>Panier an vid.</p>";  
+  
+            return;  
+        }  
+  
+  
+        items.innerHTML = "";  
+  
+        cart.forEach((item, index) => {  
+  
+            items.innerHTML += `  
+                <div class="cart-item">  
+  
+                    <div>  
+                        <strong>${item.name}</strong>  
+                        <br>  
+                        ${item.price.toLocaleString()} HTG  
+                    </div>  
+  
+                    <button  
+                        onclick="removeItem(${index})"  
+                        style="  
+                            border:none;  
+                            background:none;  
+                            color:red;  
+                            cursor:pointer;  
+                        "  
+                    >  
+                        ❌  
+                    </button>  
+  
+                </div>  
+            `;  
+  
+        });  
+  
+    }  
+  
+  
+    function removeItem(index) {  
+  
+        total -= cart[index].price;  
+  
+        cart.splice(index, 1);  
+  
+        updateCart();  
+  
+    }  
+  
+  
+    function openCart() {  
+  
+        document  
+            .getElementById("cart")  
+            .classList  
+            .add("active");  
+  
+    }  
+  
+  
